@@ -61,11 +61,14 @@ router
   .get('/', (ctx, next) => {
     ctx.body = 'Hello World!';
   })
-  .post('/compile', async (ctx, next) => {
+  .post('/download', async (ctx) => {
     const zipFile = '/tmp/ant-design.zip';
     // download repo
     await download(zipUrl, zipFile);
     await extract(zipFile);
+    ctx.body = 'done';
+  })
+  .post('/compile', async (ctx) => {
     // compile
     const entry = '/tmp/antd/ant-design-master/components/style/index.less';
     const { variables } = ctx.request.body;
