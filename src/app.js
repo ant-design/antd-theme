@@ -10,6 +10,7 @@ const postcss = require('postcss');
 const less = require('postcss-less-engine');
 const autoprefixer = require('autoprefixer');
 const rucksack = require('rucksack-css');
+const cssnano = require('cssnano');
 
 const app = new Koa();
 const router = new Router();
@@ -52,6 +53,9 @@ async function compile(entry, variables) {
     rucksack(),
     autoprefixer({
       browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4'],
+    }),
+    cssnano({
+      reduceIdents: false
     }),
   ]).process(css.toString(), { parser: less.parser, from: entry });
   return output.css;
