@@ -39,12 +39,14 @@ function extract(file) {
 
 async function compile(entry, variables) {
   const styles = await py(glob)('/tmp/antd/ant-design-master/components/*/style/index.less');
-  styles.forEach(style => {
-    py(fs.appendFile)(entry, `@import "${style}";\n`)
-  });
-  Object.keys(variables).forEach((key) => {
-    py(fs.appendFile)(entry, `${key}: ${variables[key]};\n`);
-  });
+  for (let i = 0; i < styles.length; ++i) {
+    await py(fs.appendFile)(entry, `@import "${styles[i]}";\n`)
+  }
+  for (const key in variables) {
+    if (variables.hasOwnProperty(key)) {
+      await py(fs.appendFile)(entry, `${key}: ${variables[key]};\n`);
+    }
+  }
   const css = await py(fs.readFile)(entry)
   const output = await postcss([
     less({
