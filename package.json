@@ -2,7 +2,7 @@
   "name": "online-less-compiler",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
     "start": "NODE_ENV=development nodemon src/app.js",
     "now-start": "node src/app.js",
