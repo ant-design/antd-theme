@@ -1,10 +1,9 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 const koaBody = require('koa-body');
-const https = require('https');
+const cors = require('kcors');
 const fs = require('fs');
 const path = require('path');
-const { promisify: py } = require('util');
 
 const app = new Koa();
 const router = new Router();
@@ -31,7 +30,8 @@ router
 app
   .use(koaBody())
   .use(router.routes())
-  .use(router.allowedMethods());
+  .use(router.allowedMethods())
+  .use(cors());
 
 const port = process.env.NODE_ENV === 'production' ? 80 : 3000;
 app.listen(port);
