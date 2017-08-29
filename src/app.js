@@ -3,82 +3,27 @@ const Router = require('koa-router');
 const koaBody = require('koa-body');
 const https = require('https');
 const fs = require('fs');
-const unzip = require('unzip');
+const path = require('path');
 const { promisify: py } = require('util');
-const glob = require('glob');
-const postcss = require('postcss');
-const less = require('postcss-less-engine');
-const autoprefixer = require('autoprefixer');
-const rucksack = require('rucksack-css');
-const cssnano = require('cssnano');
 
 const app = new Koa();
 const router = new Router();
 
-const zipUrl = 'https://codeload.github.com/ant-design/ant-design/zip/master';
+const PLACEHOLDER = '#999999';
 
-function download(url, dest) {
-  const file = fs.createWriteStream(dest);
-  return new Promise(resolve => {
-    https.get(url, (response) => {
-      response.pipe(file);
-      file.on('finish', () => {
-        file.close(resolve);
-      });
-    });
-  });
-}
-
-function extract(file) {
-  return new Promise(resolve => {
-    fs.createReadStream(file)
-      .pipe(unzip.Extract({ path: '/tmp/antd' }))
-      .on('close', resolve);
-  });
-}
-
-async function compile(entry, variables) {
-  const styles = await py(glob)('/tmp/antd/ant-design-master/components/*/style/index.less');
-  for (let i = 0; i < styles.length; ++i) {
-    await py(fs.appendFile)(entry, `@import "${styles[i]}";\n`)
-  }
-  for (const key in variables) {
-    if (variables.hasOwnProperty(key)) {
-      await py(fs.appendFile)(entry, `${key}: ${variables[key]};\n`);
-    }
-  }
-  const css = await py(fs.readFile)(entry)
-  const output = await postcss([
-    less({
-      paths: ['/tmp/antd/ant-design-master/components/style']
-    }),
-    rucksack(),
-    autoprefixer({
-      browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4'],
-    }),
-    cssnano({
-      reduceIdents: false
-    }),
-  ]).process(css.toString(), { parser: less.parser, from: entry });
-  return output.css;
+function compile(variables) {
+  const cssFile = path.resolve(__dirname, './style.css');
+  const css = fs.readFileSync(cssFile).toString();
+  return css.replace(/#999999/g, variables['@primary-color']);
 }
 
 router
   .get('/', (ctx, next) => {
     ctx.body = 'Hello World!';
   })
-  .post('/download', async (ctx) => {
-    const zipFile = '/tmp/ant-design.zip';
-    // download repo
-    await download(zipUrl, zipFile);
-    await extract(zipFile);
-    ctx.body = 'done';
-  })
   .post('/compile', async (ctx) => {
-    // compile
-    const entry = '/tmp/antd/ant-design-master/components/style/index.less';
     const { variables } = ctx.request.body;
-    const css = await compile(entry, variables);
+    const css = compile(variables);
     // output
     ctx.body = css;
   });

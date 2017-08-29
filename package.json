@@ -6,14 +6,13 @@
   "scripts": {
     "start": "NODE_ENV=development nodemon src/app.js",
     "now-start": "node src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "update": "node ./src/generateCss.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^7.1.1",
-    "cssnano": "^3.10.0",
     "glob": "^7.1.2",
     "koa": "^2.3.0",
     "koa-body": "^2.3.0",
@@ -23,7 +22,6 @@
     "postcss": "^6.0.5",
     "postcss-less-engine": "^0.6.2",
     "request": "^2.81.0",
-    "rucksack-css": "^0.9.1",
-    "unzip": "^0.1.11"
+    "rucksack-css": "^0.9.1"
   }
 }
