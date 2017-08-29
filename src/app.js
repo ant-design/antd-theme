@@ -21,6 +21,8 @@ router
     ctx.body = 'Hello World!';
   })
   .post('/compile', async (ctx) => {
+    ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    ctx.set('Access-Control-Allow-Origin', '*')
     const { variables } = ctx.request.body;
     const css = compile(variables);
     // output
