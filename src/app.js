@@ -25,6 +25,12 @@ router
     const css = compile(variables);
     // output
     ctx.body = css;
+  })
+  .options('*', async (ctx, next) => {
+    ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    ctx.set('Access-Control-Allow-Origin', '*')
+    ctx.status = 204
+    await next()
   });
 
 app
