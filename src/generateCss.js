@@ -8,6 +8,11 @@ const rucksack = require('rucksack-css');
 
 const PLACEHOLDERS = {
   '@primary-color': '#999999',
+  '@link-color': '#999999',
+  '@outline-color': '#999999',
+  '@btn-primary-bg': '#999999',
+  '@input-hover-border-color': '#999999',
+  '@process-default-color': '#999999',
   '@primary-1': '#999998',
   '@primary-2': '#999997',
   '@primary-5': '#999996',
