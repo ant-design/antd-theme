@@ -4,6 +4,7 @@ const koaBody = require('koa-body');
 const cors = require('kcors');
 const fs = require('fs');
 const path = require('path');
+const less = require('less');
 
 const app = new Koa();
 const router = new Router();
@@ -11,9 +12,16 @@ const router = new Router();
 const PLACEHOLDER = '#999999';
 
 function compile(variables) {
-  const cssFile = path.resolve(__dirname, './style.css');
-  const css = fs.readFileSync(cssFile).toString();
-  return css.replace(/#999999/g, variables['@primary-color']);
+  const cssFile = path.resolve(__dirname, './style/index.less');
+  let css = fs.readFileSync(cssFile).toString();
+  css += `
+  @primary-color: ${variables['@primary-color']};
+  `
+  return less.render(css, {
+    paths: [
+      path.resolve(__dirname, './style'),
+    ]
+  })
 }
 
 router
@@ -24,7 +32,7 @@ router
     ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     ctx.set('Access-Control-Allow-Origin', '*')
     const { variables } = ctx.request.body;
-    const css = compile(variables);
+    const css = (await compile(variables)).css;
     // output
     ctx.body = css;
   })

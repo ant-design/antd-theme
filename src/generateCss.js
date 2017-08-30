@@ -6,19 +6,34 @@ const less = require('postcss-less-engine');
 const autoprefixer = require('autoprefixer');
 const rucksack = require('rucksack-css');
 
-const PLACEHOLDER = '#999999';
+const PLACEHOLDERS = {
+  '@primary-color': '#999999',
+  '@primary-1': '#999998',
+  '@primary-2': '#999997',
+  '@primary-5': '#999996',
+  '@primary-6': '#999995',
+  '@primary-7': '#999994',
+};
 
 const reducePlugin= postcss.plugin('reducePlugin', () => {
   const cleanRule = rule => {
-    let remove = true;
+    let removeRule = true;
     rule.walkDecls(decl => {
-      if (decl.value.includes(PLACEHOLDER)) {
-        remove = false;
-      } else {
+      let removeDecl = true;
+      const placeholders = Object.values(PLACEHOLDERS);
+      for (var i = 0; i < placeholders.length; ++i) {
+        const placeholder = placeholders[i];
+        if (decl.value.includes(placeholder)) {
+          removeRule = false;
+          removeDecl = false;
+          break;
+        }
+      }
+      if (removeDecl) {
         decl.remove();
       }
     });
-    if (remove) {
+    if (removeRule) {
       rule.remove();
       rule.removed = true;
     }
@@ -49,11 +64,14 @@ async function generateCss() {
   let css = fs.readFileSync(entry).toString();
   const styles = glob.sync(path.join(antd, 'components/*/style/index.less'));
   css += '\n';
-  css += `@primary-color: ${PLACEHOLDER};\n`;
+  Object.keys(PLACEHOLDERS).forEach(key => {
+    css += `${key}: ${PLACEHOLDERS[key]};\n`;
+  });
   css += '\n';
   for (let i = 0; i < styles.length; ++i) {
     css += `@import "${styles[i]}";\n`;
   }
+  // fs.writeFileSync('/tmp/style.less', css);
   const output = await postcss([
     less({
       paths: [path.join(antd, 'components/style')]
@@ -64,7 +82,24 @@ async function generateCss() {
     }),
     reducePlugin,
   ]).process(css, { parser: less.parser, from: entry });
-  fs.writeFileSync(path.resolve(__dirname, './style.css'), output.css);
+  let result = output.css;
+  Object.keys(PLACEHOLDERS).forEach(key => {
+    result = result.replace(new RegExp(PLACEHOLDERS[key], 'g'), key);
+  });
+
+  result = `
+@import "./color/colors";
+
+@primary-color: #999999;
+@primary-1: color(~\`colorPalette("@{primary-color}", 1)\`);
+@primary-2: color(~\`colorPalette("@{primary-color}", 2)\`);
+@primary-5: color(~\`colorPalette("@{primary-color}", 5)\`);
+@primary-6: @primary-color;
+@primary-7: color(~\`colorPalette("@{primary-color}", 7)\`);
+\n
+  ` + result;
+
+  fs.writeFileSync(path.resolve(__dirname, './style/index.less'), result);
 }
 
 generateCss();
