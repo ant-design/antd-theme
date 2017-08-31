@@ -21,7 +21,7 @@ function compile(variables) {
     paths: [
       path.resolve(__dirname, './style'),
     ]
-  })
+  }).catch(error => console.log(error))
 }
 
 router

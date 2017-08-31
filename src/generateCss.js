@@ -53,19 +53,14 @@ const reducePlugin= postcss.plugin('reducePlugin', () => {
   }
   return css => {
     css.walkAtRules(atRule => {
-      let remove = true;
-      atRule.walkRules(rule => {
-        cleanRule(rule);
-        if (!rule.removed) {
-          remove = false
-        }
-      });
-      if (remove) {
-        atRule.remove();
-      }
+      atRule.remove();
     });
 
-    css.walkRules(cleanRule);
+    css.walkRules(rule => {
+      if (rule.selector.includes('.ant-spin-blur')) {
+        rule.remove();
+      }
+    });
 
     css.walkComments(c => c.remove());
   }
