@@ -10,8 +10,6 @@ const colorPalette = require('./color/colorPalette');
 const app = new Koa();
 const router = new Router();
 
-const PLACEHOLDER = '#999999';
-
 function compile(variables) {
   const cssFile = path.resolve(__dirname, './index.less');
   const primaryColor = variables['@primary-color'];
