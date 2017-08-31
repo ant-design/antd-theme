@@ -43,7 +43,7 @@ const reducePlugin= postcss.plugin('reducePlugin', () => {
         }
       }
       if (removeDecl) {
-        decl.remove();
+        // decl.remove();
       }
     });
     if (removeRule) {
