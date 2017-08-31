@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "autoprefixer": "^7.1.1",
     "glob": "^7.1.2",
     "kcors": "^2.2.1",
     "koa": "^2.3.0",
@@ -22,7 +21,6 @@
     "nodemon": "^1.11.0",
     "postcss": "^6.0.5",
     "postcss-less-engine": "^0.6.2",
-    "request": "^2.81.0",
-    "rucksack-css": "^0.9.1"
+    "request": "^2.81.0"
   }
 }

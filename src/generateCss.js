@@ -3,8 +3,6 @@ const path = require('path');
 const glob = require('glob');
 const postcss = require('postcss');
 const less = require('postcss-less-engine');
-const autoprefixer = require('autoprefixer');
-const rucksack = require('rucksack-css');
 
 const PLACEHOLDERS = {
   '@primary-color': '#999999',
@@ -29,10 +27,14 @@ const reducePlugin= postcss.plugin('reducePlugin', () => {
   const cleanRule = rule => {
     let removeRule = true;
     rule.walkDecls(decl => {
-      if (!decl.prop.includes('color')) {
+      if (
+        !decl.prop.includes('color') &&
+        !decl.prop.includes('background') &&
+        !decl.prop.includes('border') &&
+        !decl.prop.includes('box-shadow')
+      ) {
         decl.remove();
-      }
-      if (decl.prop.includes('color')) {
+      } else {
         removeRule = false;
       }
     });
@@ -68,10 +70,6 @@ async function generateCss() {
   const output = await postcss([
     less({
       paths: [path.join(antd, 'components/style')]
-    }),
-    rucksack(),
-    autoprefixer({
-      browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4'],
     }),
     reducePlugin,
   ]).process(css, { parser: less.parser, from: entry });
