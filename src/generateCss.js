@@ -29,26 +29,15 @@ const reducePlugin= postcss.plugin('reducePlugin', () => {
   const cleanRule = rule => {
     let removeRule = true;
     rule.walkDecls(decl => {
-      let removeDecl = true;
-      const placeholders = [
-        ...Object.values(PLACEHOLDERS),
-        ...Object.values(COMPUTED),
-      ];
-      for (var i = 0; i < placeholders.length; ++i) {
-        const placeholder = placeholders[i];
-        if (decl.value.includes(placeholder)) {
-          removeRule = false;
-          removeDecl = false;
-          break;
-        }
+      if (!decl.prop.includes('color')) {
+        decl.remove();
       }
-      if (removeDecl) {
-        // decl.remove();
+      if (decl.prop.includes('color')) {
+        removeRule = false;
       }
     });
     if (removeRule) {
       rule.remove();
-      rule.removed = true;
     }
   }
   return css => {
@@ -56,11 +45,7 @@ const reducePlugin= postcss.plugin('reducePlugin', () => {
       atRule.remove();
     });
 
-    css.walkRules(rule => {
-      if (rule.selector.includes('.ant-spin-blur')) {
-        rule.remove();
-      }
-    });
+    css.walkRules(cleanRule);
 
     css.walkComments(c => c.remove());
   }
