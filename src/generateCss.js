@@ -20,12 +20,20 @@ const PLACEHOLDERS = {
   '@primary-7': '#999994',
 };
 
+const COMPUTED = {
+  '@primary-5': '#b1b1b1',
+  '@primary-7': '#858585',
+}
+
 const reducePlugin= postcss.plugin('reducePlugin', () => {
   const cleanRule = rule => {
     let removeRule = true;
     rule.walkDecls(decl => {
       let removeDecl = true;
-      const placeholders = Object.values(PLACEHOLDERS);
+      const placeholders = [
+        ...Object.values(PLACEHOLDERS),
+        ...Object.values(COMPUTED),
+      ];
       for (var i = 0; i < placeholders.length; ++i) {
         const placeholder = placeholders[i];
         if (decl.value.includes(placeholder)) {
@@ -90,6 +98,9 @@ async function generateCss() {
   let result = output.css;
   Object.keys(PLACEHOLDERS).forEach(key => {
     result = result.replace(new RegExp(PLACEHOLDERS[key], 'g'), key);
+  });
+  Object.keys(COMPUTED).forEach(key => {
+    result = result.replace(new RegExp(COMPUTED[key], 'g'), key);
   });
 
   result = `

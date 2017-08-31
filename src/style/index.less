@@ -34,6 +34,9 @@ a:active {
 .ant-anchor-link-active > .ant-anchor-link-title {
     color: @primary-color
 }
+.ant-select-auto-complete.ant-select .ant-input:focus, .ant-select-auto-complete.ant-select .ant-input:hover {
+    border-color: @primary-5
+}
 .ant-badge-status-processing {
     background-color: @primary-color
 }
@@ -54,6 +57,14 @@ a:active {
 .ant-btn-primary {
     background-color: @primary-color;
     border-color: @primary-color
+}
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+    background-color: @primary-5;
+    border-color: @primary-5
+}
+.ant-btn-primary:active, .ant-btn-primary.active {
+    background-color: @primary-7;
+    border-color: @primary-7
 }
 .ant-btn-group .ant-btn-primary:not(:first-child):not(:last-child) {
     border-right-color: @primary-7;
@@ -88,6 +99,14 @@ a:active {
     color: @primary-color;
     border-color: @primary-color
 }
+.ant-btn-background-ghost.ant-btn-primary:hover, .ant-btn-background-ghost.ant-btn-primary:focus {
+    color: @primary-5;
+    border-color: @primary-5
+}
+.ant-btn-background-ghost.ant-btn-primary:active, .ant-btn-background-ghost.ant-btn-primary.active {
+    color: @primary-7;
+    border-color: @primary-7
+}
 .ant-fullcalendar-value:hover {
     background: @primary-1
 }
@@ -115,6 +134,9 @@ a:active {
 }
 .ant-fullcalendar-fullscreen .ant-fullcalendar-month-panel-selected-cell .ant-fullcalendar-value, .ant-fullcalendar-fullscreen .ant-fullcalendar-selected-day .ant-fullcalendar-value {
     color: @primary-color
+}
+.ant-cascader-picker:focus .ant-cascader-input {
+    border-color: @primary-5
 }
 .ant-cascader-menu-item:hover {
     background: @primary-1
@@ -154,6 +176,20 @@ a:active {
 .ant-calendar .ant-calendar-ok-btn {
     background-color: @primary-color;
     border-color: @primary-color
+}
+.ant-calendar .ant-calendar-ok-btn:hover, .ant-calendar .ant-calendar-ok-btn:focus {
+    background-color: @primary-5;
+    border-color: @primary-5
+}
+.ant-calendar .ant-calendar-ok-btn:active, .ant-calendar .ant-calendar-ok-btn.active {
+    background-color: @primary-7;
+    border-color: @primary-7
+}
+.ant-calendar-range .ant-calendar-input:hover, .ant-calendar-range .ant-calendar-time-picker-input:hover {
+    border-color: @primary-5
+}
+.ant-calendar-range .ant-calendar-input:focus, .ant-calendar-range .ant-calendar-time-picker-input:focus {
+    border-color: @primary-5
 }
 .ant-calendar-range .ant-calendar-in-range-cell:before {
     background: @primary-1
@@ -210,8 +246,20 @@ a:active {
 .is-validating.has-feedback:after {
     color: @primary-color
 }
+.ant-input-number:hover {
+    border-color: @primary-5
+}
+.ant-input-number:focus {
+    border-color: @primary-5
+}
 .ant-input-number-handler:hover .ant-input-number-handler-up-inner, .ant-input-number-handler:hover .ant-input-number-handler-down-inner {
     color: @primary-5
+}
+.ant-input-number:hover {
+    border-color: @primary-5
+}
+.ant-input-number-focused {
+    border-color: @primary-5
 }
 .ant-input-search-icon:hover {
     color: @primary-color
@@ -228,8 +276,34 @@ a:active {
     background-color: @primary-color;
     border-color: @primary-color
 }
+.ant-search-input.ant-search-input-focus .ant-search-btn-noempty:hover, .ant-search-input:hover .ant-search-btn-noempty:hover, .ant-search-input.ant-search-input-focus .ant-search-btn-noempty:focus, .ant-search-input:hover .ant-search-btn-noempty:focus {
+    background-color: @primary-5;
+    border-color: @primary-5
+}
+.ant-search-input.ant-search-input-focus .ant-search-btn-noempty:active, .ant-search-input:hover .ant-search-btn-noempty:active, .ant-search-input.ant-search-input-focus .ant-search-btn-noempty.active, .ant-search-input:hover .ant-search-btn-noempty.active {
+    background-color: @primary-7;
+    border-color: @primary-7
+}
+.ant-input:hover {
+    border-color: @primary-5
+}
+.ant-input:focus {
+    border-color: @primary-5
+}
 .ant-input-group-addon .ant-select-open .ant-select-selection, .ant-input-group-addon .ant-select-focused .ant-select-selection {
     color: @primary-color
+}
+.ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+    border-color: @primary-5
+}
+.ant-mention-wrapper .ant-mention-editor:hover {
+    border-color: @primary-5
+}
+.ant-mention-wrapper .ant-mention-editor:focus {
+    border-color: @primary-5
+}
+.ant-mention-wrapper.ant-mention-active:not(.disabled) .ant-mention-editor {
+    border-color: @primary-5
 }
 .ant-mention-dropdown-notfound.ant-mention-dropdown-item .anticon-loading {
     color: @primary-color
@@ -300,6 +374,12 @@ a:active {
 .ant-pagination-prev:focus a, .ant-pagination-next:focus a, .ant-pagination-prev:hover a, .ant-pagination-next:hover a {
     color: @primary-color
 }
+.ant-pagination-options-quick-jumper input:hover {
+    border-color: @primary-5
+}
+.ant-pagination-options-quick-jumper input:focus {
+    border-color: @primary-5
+}
 .ant-pagination-simple .ant-pagination-simple-pager input:hover {
     border-color: @primary-color
 }
@@ -347,6 +427,15 @@ a:active {
     -webkit-box-shadow: -1px 0 0 0 @primary-7;
             box-shadow: -1px 0 0 0 @primary-7;
     color: @primary-7
+}
+.ant-select-selection:hover {
+    border-color: @primary-5
+}
+.ant-select-focused .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active {
+    border-color: @primary-5
+}
+.ant-select-open .ant-select-selection {
+    border-color: @primary-5
 }
 .ant-select-dropdown-menu-item:hover {
     background-color: @primary-1
@@ -451,6 +540,12 @@ a:active {
 }
 .ant-time-picker-panel-select li:hover {
     background: @primary-1
+}
+.ant-time-picker-input:hover {
+    border-color: @primary-5
+}
+.ant-time-picker-input:focus {
+    border-color: @primary-5
 }
 .ant-timeline-item-head-blue {
     border-color: @primary-color;
