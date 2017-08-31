@@ -81,19 +81,7 @@ async function generateCss() {
     result = result.replace(new RegExp(COMPUTED[key], 'g'), key);
   });
 
-  result = `
-@import "./color/colors";
-
-@primary-color: #999999;
-@primary-1: color(~\`colorPalette("@{primary-color}", 1)\`);
-@primary-2: color(~\`colorPalette("@{primary-color}", 2)\`);
-@primary-5: color(~\`colorPalette("@{primary-color}", 5)\`);
-@primary-6: @primary-color;
-@primary-7: color(~\`colorPalette("@{primary-color}", 7)\`);
-\n
-  ` + result;
-
-  fs.writeFileSync(path.resolve(__dirname, './style/index.less'), result);
+  fs.writeFileSync(path.resolve(__dirname, './index.less'), result);
 }
 
 generateCss();

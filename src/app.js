@@ -5,6 +5,7 @@ const cors = require('kcors');
 const fs = require('fs');
 const path = require('path');
 const less = require('less');
+const colorPalette = require('./color/colorPalette');
 
 const app = new Koa();
 const router = new Router();
@@ -12,16 +13,21 @@ const router = new Router();
 const PLACEHOLDER = '#999999';
 
 function compile(variables) {
-  const cssFile = path.resolve(__dirname, './style/index.less');
+  const cssFile = path.resolve(__dirname, './index.less');
+  const primaryColor = variables['@primary-color'];
+  const colorMap = {
+    '@primary-color': primaryColor,
+    '@primary-1': colorPalette(primaryColor, 1),
+    '@primary-2': colorPalette(primaryColor, 2),
+    '@primary-5': colorPalette(primaryColor, 5),
+    '@primary-6': primaryColor,
+    '@primary-7': colorPalette(primaryColor, 7),
+  }
   let css = fs.readFileSync(cssFile).toString();
-  css += `
-  @primary-color: ${variables['@primary-color']};
-  `
-  return less.render(css, {
-    paths: [
-      path.resolve(__dirname, './style'),
-    ]
-  }).catch(error => console.log(error))
+  Object.keys(colorMap).forEach(key => {
+    css = css.replace(new RegExp(key, 'g'), colorMap[key]);
+  });
+  return css;
 }
 
 router
@@ -32,7 +38,7 @@ router
     ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     ctx.set('Access-Control-Allow-Origin', '*')
     const { variables } = ctx.request.body;
-    const css = (await compile(variables)).css;
+    const css = compile(variables);
     // output
     ctx.body = css;
   })
