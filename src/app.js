@@ -20,12 +20,23 @@ function compile(variables) {
     '@primary-5': colorPalette(primaryColor, 5),
     '@primary-6': primaryColor,
     '@primary-7': colorPalette(primaryColor, 7),
+    '@slider-0': 'tint(@primary-color, 60%)',
+    '@slider-1': 'tint(@primary-color, 50%)',
+    '@slider-2': 'fadeout(@primary-color, 80%)',
+    '@slider-3': 'tint(@primary-color, 40%)',
   }
   let css = fs.readFileSync(cssFile).toString();
-  Object.keys(colorMap).forEach(key => {
-    css = css.replace(new RegExp(key, 'g'), colorMap[key]);
+
+  Object.keys(colorMap).forEach(k => {
+    css += `
+      \n
+      ${k}: ${colorMap[k]};
+    `;
   });
-  return css;
+
+  return new Promise(resolve => {
+    less.render(css).then(output => resolve(output.css))
+  });
 }
 
 router
@@ -36,7 +47,7 @@ router
     ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     ctx.set('Access-Control-Allow-Origin', '*')
     const { variables } = ctx.request.body;
-    const css = compile(variables);
+    const css = await compile(variables);
     // output
     ctx.body = css;
   })

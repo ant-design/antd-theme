@@ -21,6 +21,10 @@ const PLACEHOLDERS = {
 const COMPUTED = {
   '@primary-5': '#b1b1b1',
   '@primary-7': '#858585',
+  '@slider-0': '#d6d6d6',
+  '@slider-1': '#cccccc',
+  '@slider-2': 'rgba(153, 153, 153, 0.2)',
+  '@slider-3': '#c2c2c2',
 }
 
 const reducePlugin= postcss.plugin('reducePlugin', () => {
