@@ -24,6 +24,7 @@ function compile(variables) {
     '@slider-1': 'tint(@primary-color, 50%)',
     '@slider-2': 'fadeout(@primary-color, 80%)',
     '@slider-3': 'tint(@primary-color, 40%)',
+    '@start-button-color': 'tint(@primary-color, 20%)',
   }
   let css = fs.readFileSync(cssFile).toString();
 

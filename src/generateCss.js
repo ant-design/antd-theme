@@ -25,6 +25,7 @@ const COMPUTED = {
   '@slider-1': '#cccccc',
   '@slider-2': 'rgba(153, 153, 153, 0.2)',
   '@slider-3': '#c2c2c2',
+  '@start-button-color': '#40a5ed',
 }
 
 const reducePlugin= postcss.plugin('reducePlugin', () => {
@@ -70,7 +71,8 @@ async function generateCss() {
   for (let i = 0; i < styles.length; ++i) {
     css += `@import "${styles[i]}";\n`;
   }
-  // fs.writeFileSync('/tmp/style.less', css);
+  css += `@import "${path.join(antd, 'site/theme/static/index.less')}";\n`;
+  fs.writeFileSync('/tmp/style.less', css);
   const output = await postcss([
     less({
       paths: [path.join(antd, 'components/style')]
