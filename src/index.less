@@ -876,6 +876,9 @@ a[disabled] {
     background-color: #fff;
     border: 0
 }
+.ant-collapse-borderless > .ant-collapse-item:last-child, .ant-collapse-borderless > .ant-collapse-item:last-child .ant-collapse-header {
+    border-radius: 0
+}
 .ant-collapse-borderless > .ant-collapse-item-active {
     border: 0
 }
@@ -1475,7 +1478,7 @@ form .ant-upload {
     border-color: #ffce3d;
     box-shadow: 0 0 0 2px rgba(255, 191, 0, 0.2)
 }
-.has-warning .ant-calendar-picker-icon:after, .has-warning .ant-picker-icon:after, .has-warning .ant-select-arrow, .has-warning .ant-cascader-picker-arrow {
+.has-warning .ant-calendar-picker-icon:after, .has-warning .ant-time-picker-icon:after, .has-warning .ant-picker-icon:after, .has-warning .ant-select-arrow, .has-warning .ant-cascader-picker-arrow {
     color: #ffbf00
 }
 .has-warning .ant-input-number, .has-warning .ant-time-picker-input {
@@ -1530,7 +1533,7 @@ form .ant-upload {
     border-color: transparent;
     box-shadow: none
 }
-.has-error .ant-calendar-picker-icon:after, .has-error .ant-picker-icon:after, .has-error .ant-select-arrow, .has-error .ant-cascader-picker-arrow {
+.has-error .ant-calendar-picker-icon:after, .has-error .ant-time-picker-icon:after, .has-error .ant-picker-icon:after, .has-error .ant-select-arrow, .has-error .ant-cascader-picker-arrow {
     color: #f04134
 }
 .has-error .ant-input-number, .has-error .ant-time-picker-input {
@@ -2097,11 +2100,11 @@ form .ant-upload {
 .ant-menu-dark.ant-menu-inline .ant-menu-item:after, .ant-menu-dark.ant-menu-vertical .ant-menu-item:after {
     border-right: 0
 }
-.ant-menu-dark .ant-menu-item:hover, .ant-menu-dark .ant-menu-item-active, .ant-menu-dark .ant-menu-submenu-active, .ant-menu-dark:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-dark .ant-menu-submenu-selected, .ant-menu-dark .ant-menu-submenu:hover, .ant-menu-dark .ant-menu-submenu-title:hover {
+.ant-menu-dark .ant-menu-item:hover, .ant-menu-dark .ant-menu-item-active, .ant-menu-dark .ant-menu-submenu-active, .ant-menu-dark:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-dark .ant-menu-submenu-selected, .ant-menu-dark .ant-menu-submenu-title:hover {
     background-color: transparent;
     color: #fff
 }
-.ant-menu-dark .ant-menu-item:hover > a, .ant-menu-dark .ant-menu-item-active > a, .ant-menu-dark .ant-menu-submenu-active > a, .ant-menu-dark:not(.ant-menu-inline) .ant-menu-submenu-open > a, .ant-menu-dark .ant-menu-submenu-selected > a, .ant-menu-dark .ant-menu-submenu:hover > a, .ant-menu-dark .ant-menu-submenu-title:hover > a {
+.ant-menu-dark .ant-menu-item:hover > a, .ant-menu-dark .ant-menu-item-active > a, .ant-menu-dark .ant-menu-submenu-active > a, .ant-menu-dark:not(.ant-menu-inline) .ant-menu-submenu-open > a, .ant-menu-dark .ant-menu-submenu-selected > a, .ant-menu-dark .ant-menu-submenu-title:hover > a {
     color: #fff
 }
 .ant-menu-dark .ant-menu-item-selected {
@@ -2254,26 +2257,23 @@ form .ant-upload {
     color: rgba(0, 0, 0, 0.65);
     border-radius: 4px
 }
-.ant-pagination-prev, .ant-pagination-next {
-    border: 1px solid #d9d9d9;
-    background-color: #fff
-}
 .ant-pagination-prev a, .ant-pagination-next a {
     color: rgba(0, 0, 0, 0.65)
 }
-.ant-pagination-prev:focus, .ant-pagination-next:focus, .ant-pagination-prev:hover, .ant-pagination-next:hover {
-    border-color: @primary-color
-}
-.ant-pagination-prev:focus a, .ant-pagination-next:focus a, .ant-pagination-prev:hover a, .ant-pagination-next:hover a {
+.ant-pagination-prev:hover a, .ant-pagination-next:hover a {
     color: @primary-color
 }
-.ant-pagination-disabled:hover, .ant-pagination-disabled:focus {
-    border-color: #d9d9d9
+.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
+    border: 1px solid #d9d9d9;
+    background-color: #fff;
+    border-radius: 4px
 }
-.ant-pagination-disabled:hover a, .ant-pagination-disabled:focus a {
-    color: rgba(0, 0, 0, 0.25)
+.ant-pagination-prev:focus .ant-pagination-item-link, .ant-pagination-next:focus .ant-pagination-item-link, .ant-pagination-prev:hover .ant-pagination-item-link, .ant-pagination-next:hover .ant-pagination-item-link {
+    border-color: @primary-color;
+    color: @primary-color
 }
-.ant-pagination-disabled a {
+.ant-pagination-disabled a, .ant-pagination-disabled:hover a, .ant-pagination-disabled:focus a, .ant-pagination-disabled .ant-pagination-item-link, .ant-pagination-disabled:hover .ant-pagination-item-link, .ant-pagination-disabled:focus .ant-pagination-item-link {
+    border-color: #d9d9d9;
     color: rgba(0, 0, 0, 0.25)
 }
 .ant-pagination-options-quick-jumper input {
@@ -2306,7 +2306,7 @@ form .ant-upload {
 .ant-pagination-options-quick-jumper input-disabled:hover {
     border-color: #e2e2e2
 }
-.ant-pagination-simple .ant-pagination-prev, .ant-pagination-simple .ant-pagination-next {
+.ant-pagination-simple .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-simple .ant-pagination-next .ant-pagination-item-link {
     border: 0
 }
 .ant-pagination-simple .ant-pagination-simple-pager input {
@@ -2320,7 +2320,7 @@ form .ant-upload {
 .ant-pagination.mini .ant-pagination-item {
     border: 0
 }
-.ant-pagination.mini .ant-pagination-prev, .ant-pagination.mini .ant-pagination-next {
+.ant-pagination.mini .ant-pagination-prev .ant-pagination-item-link, .ant-pagination.mini .ant-pagination-next .ant-pagination-item-link {
     border: 0
 }
 .ant-popover:after {
@@ -2540,6 +2540,9 @@ form .ant-upload {
 }
 .ant-select > ul > li > a {
     background-color: #fff
+}
+.ant-select-arrow {
+    color: rgba(0, 0, 0, 0.43)
 }
 .ant-select-selection {
     background-color: #fff;
@@ -2972,9 +2975,6 @@ form .ant-upload {
 .ant-table-small .ant-table-header {
     background: #fff
 }
-.ant-table-small .ant-table-header table {
-    border-bottom: 1px solid #e9e9e9
-}
 .ant-table-small .ant-table-placeholder, .ant-table-small .ant-table-row:last-child td {
     border-bottom: 0
 }
@@ -3042,7 +3042,14 @@ form .ant-upload {
     color: rgba(0, 0, 0, 0.43)
 }
 .ant-table-placeholder-fixed-columns {
-    background: #fff
+    background: transparent;
+    color: #000
+}
+.ant-table-row-empty-placeholder > td {
+    border-right-color: transparent !important
+}
+.ant-table-row-empty-placeholder > td > * {
+    color: transparent !important
 }
 .ant-table-filter-dropdown {
     background: #fff;
@@ -3807,6 +3814,10 @@ body {
     border-left: 1px solid #ebedee
 }
 #search-box .ant-select-selection {
+    border: 0;
+    box-shadow: none
+}
+#search-box .ant-input {
     border: 0;
     box-shadow: none
 }
